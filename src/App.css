@@ -24,6 +24,24 @@
   color: white;
 }
 
+.App-container {
+  padding: 4rem;
+  max-width: 48rem;
+}
+
+.App-container img {
+  width: 100%;
+}
+
+.App-container h1, .App-container h6 {
+  margin: 0;
+}
+
+.App-container p {
+  font-size: 1rem;
+  text-align: justify;
+}
+
 .App-link {
   color: #61dafb;
 }

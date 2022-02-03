@@ -1,22 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import "./App.css";
+import APOD from "./APOD";
+import { getAPOD, getPreviousAPOD, selectAPOD } from "./stores/apodSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const { value, status } = useSelector(selectAPOD);
+
+  useEffect(() => {
+    dispatch(getAPOD());
+  }, [dispatch]);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <APOD />
+        {!!value && (
+          <div className="App-container">
+            <img src={value?.url} alt={value?.title} />
+            <h1>{value?.title}</h1>
+            <h6>{value?.date}</h6>
+            <p>{value?.explanation}</p>
+
+            <button onClick={() => dispatch(getPreviousAPOD(value?.date))}>
+              Previous
+            </button>
+          </div>
+        )}
       </header>
     </div>
   );
